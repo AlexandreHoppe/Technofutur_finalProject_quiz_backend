@@ -1,0 +1,7 @@
+pytest==8.2.2
+pytest-cov==5.0.0
+flake8==7.1.0
+pip-audit==2.7.3
+# Aligné sur l'image de la CI (.gitlab-ci.yml) : un format produit par une
+# autre version peut ne pas satisfaire `ruff format --diff` en pipeline.
+ruff == 0.16.3
