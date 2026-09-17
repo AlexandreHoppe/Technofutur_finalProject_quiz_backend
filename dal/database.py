@@ -3,11 +3,11 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 
-from dal.models.base import Base
-from dal.models.user import User
-from dal.models.question import Question
-from dal.models.quiz import Quiz
-from dal.models.score import Score
+from dal.models.base_models import Base
+from dal.models.user_models import User
+from dal.models.question_models import Question
+from dal.models.quiz_models import Quiz
+from dal.models.score_models import Score
 
 import os
 

@@ -1,7 +1,7 @@
 from typing import Optional
 
 from dal.database import get_db
-from dal.models.user import User
+from dal.models.user_models import User
 
 class UserRepository:
 

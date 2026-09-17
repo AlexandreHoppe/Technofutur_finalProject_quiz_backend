@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from pydantic import ValidationError
 
 from dal.database import get_db
-from dal.models.quiztoquestion import QuizToQuestion
+from dal.models.quiztoquestion_models import QuizToQuestion
 from api.controllers.quiztoquestion_controller import QuizController
 from api.schemas.quiztoquestion_schemas import QuizToQuestionCreateDTO
 

@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from dal.database import get_db
-from dal.models.quiz import Quiz
-from dal.models.quiztoquestion import QuizToQuestion
-from dal.models.question import Question
+from dal.models.quiz_models import Quiz
+from dal.models.quiztoquestion_models import QuizToQuestion
+from dal.models.question_models import Question
 from api.controllers.quiz_controller import QuizController
 from api.controllers.question_controller import QuestionController
 

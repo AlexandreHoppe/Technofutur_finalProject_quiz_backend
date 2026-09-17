@@ -1,7 +1,7 @@
 from typing import Optional
 
 from dal.database import get_db
-from dal.models.score import Score
+from dal.models.score_models import Score
 
 class ScoreRepository:
 

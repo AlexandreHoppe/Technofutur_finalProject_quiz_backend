@@ -1,7 +1,7 @@
 from typing import Optional
 
 from dal.database import get_db
-from dal.models.question import Question
+from dal.models.question_models import Question
 
 class QuestionRepository:
 

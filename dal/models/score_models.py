@@ -1,4 +1,4 @@
-from .base import Base
+from .base_models import Base
 from datetime import datetime
 from sqlalchemy import Column, ForeignKey, Integer, DateTime
 

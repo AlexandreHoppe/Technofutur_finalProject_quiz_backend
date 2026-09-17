@@ -1,7 +1,7 @@
 from typing import Optional
 
 from dal.database import get_db
-from dal.models.quiztoquestion import QuizToQuestion
+from dal.models.quiztoquestion_models import QuizToQuestion
 
 class QuizToQuestionRepository:
 
