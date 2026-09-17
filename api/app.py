@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from flask import Flask, jsonify
+from flask_cors import CORS
 from api.routes.user_routes import user_blueprint
 from api.routes.score_routes import score_blueprint
 from api.routes.quiz_routes import quiz_blueprint
@@ -13,6 +14,7 @@ load_dotenv()
 
 app = Flask(__name__)
 app.json.sort_keys = False
+CORS(app, origins=["http://localhost:4200"])
 
 def startup():
     if test_connection():

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from api.schemas.quiz_schemas import QuizFilterDTO
+from api.schemas.quiz_schemas import QuizCreateDTO
 from dal.repositories.quiz_repository import QuizRepository
 
 class QuizController:
@@ -10,3 +10,6 @@ class QuizController:
     #Test Get Everything
     def get_all_Quiz(self):
         return self.repo.get_all()
+
+    def create_Quiz(self, data):
+        return self.repo.QuizRepository(data)

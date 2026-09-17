@@ -18,7 +18,7 @@ engine = create_engine(DATABASE_URL, echo=False)
 
 session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-def init_db(delete=False):
+def init_db(delete=True):
     if delete:
         Base.metadata.drop_all(bind=engine)
         print("Tables deleted with success.")
@@ -49,21 +49,47 @@ def seed_data():
             database.flush()
 
         if database.query(Question).count() == 0:
-            question = Question(
-                question_questions="What is yes ?",
-                question_answers="Yes",
-                question_category="Yes or No",
-                question_type="party"
-            )
-            database.add(question)
+            question = [
+                Question(
+                    question_questions="What is yes ?",
+                    question_answers="Yes",
+                    question_category="Yes or No",
+                    question_type="party"
+                ),
+                Question(
+                    question_questions="What is no ?",
+                    question_answers="No",
+                    question_category="Yes or No",
+                    question_type="party"
+                ),
+                Question(
+                    question_questions="What is yes and no?",
+                    question_answers="Yes and No",
+                    question_category="Yes or No",
+                    question_type="party"
+                ),
+                Question(
+                    question_questions="Is This as test ?",
+                    question_answers="Maybe",
+                    question_category="Test",
+                    question_type="party"
+                ),
+                Question(
+                    question_questions="Is This as test too?",
+                    question_answers="Two",
+                    question_category="Test",
+                    question_type="party"
+                ),
+            ]
+            database.add_all(question)
             database.flush()
 
         if database.query(Quiz).count() == 0:
             quiz = Quiz(
                 quiz_userId=user.user_id,
-                quiz_questionId=question.question_id,
                 quiz_responded=2,
                 quiz_length=10,
+                quiz_category="yes",
                 quiz_type="party"
             )
             database.add(quiz)

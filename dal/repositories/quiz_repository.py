@@ -14,11 +14,12 @@ class QuizRepository:
                 {
                     "quiz_id" : quiz.quiz_id ,
                     "quiz_UserId" : quiz.quiz_userId ,
-                    "quiz_questionId" : quiz.quiz_questionId ,
+                    "quiz_name" : quiz.quiz_name ,
                     "quiz_responce" : quiz.quiz_responded ,
                     "quiz_length" : quiz.quiz_length ,
-                    "quiz_state" : quiz.quiz_state ,
+                    "quiz_done" : quiz.quiz_done ,
                     "quiz_difficulty" : quiz.quiz_difficulty ,
+                    "quiz_category" : quiz.quiz_category,
                     "quiz_type" : quiz.quiz_type
                 }
                 for quiz in quizzes
