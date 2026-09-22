@@ -9,20 +9,16 @@ from api.schemas.quiztoquestion_schemas import QuizToQuestionCreateDTO
 quiztoquestion_blueprint=Blueprint("quiztoquestions", __name__, url_prefix="/api/quiztoquestions")
 quiztoquestion_controller=QuizToQuestionController()
 
-@quiztoquestion_blueprint.route("/<string:quiz_name>/<int:question_number>/question", methods=["GET"])
-def get_byname_question(quiz_name, question_number):
+@quiztoquestion_blueprint.route("/<string:quiz_name>/question", methods=["GET"])
+def get_byname_question(quiz_name):
     questions = quiztoquestion_controller.get_byname_question(quiz_name)
-    if question_number >= len(questions):
-        return jsonify({"error": "Question number does not exist"}), 404
     return jsonify({
-        "data": questions[question_number]
+        "data": questions
     }), 200
 
-@quiztoquestion_blueprint.route("<string:quiz_name>/<int:question_number>/answer", methods=["GET"])
-def get_byname_answers(quiz_name, question_number):
+@quiztoquestion_blueprint.route("<string:quiz_name>/answer", methods=["GET"])
+def get_byname_answers(quiz_name):
     answers = quiztoquestion_controller.get_byname_answers(quiz_name)
-    if question_number >= len(answers):
-        return jsonify({"error": "Answer number does not exist"}), 404
     return jsonify({
-        "data": answers[question_number]
+        "data": answers
     })

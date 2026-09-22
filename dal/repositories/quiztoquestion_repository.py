@@ -20,21 +20,30 @@ class QuizToQuestionRepository:
                 for quizToQuestion in quizToQuestions
             ]
 
-    def get_byname_question(self, quiz_name, question_number) :
+    def get_byname_question(self, quiz_name) :
         with get_db() as database:
+            quiz = (
+                database.query(Quiz)
+                .filter(Quiz.quiz_name == quiz_name)
+                .first()
+            )
+
             questions_text = (
                 database.query(Question, Quiz)
                 .join(QuizToQuestion, QuizToQuestion.quiztoquestion_questionId == Question.question_id)
                 .join(Quiz, QuizToQuestion.quiztoquestion_quizId == Quiz.quiz_id)
                 .filter(Quiz.quiz_name == quiz_name)
                 .filter(Quiz.quiz_category == Question.question_category)
+                .filter(Quiz.quiz_category == Question.question_category)
                 .all()
             )
-            return [
+            toBeSend = [
                 question.question_questions
                 for question, quiz in questions_text
                 if quiz.quiz_type in (question.question_type or [])
             ]
+
+            return toBeSend[quiz.quiz_responded]
 
     def get_byname_answers(self, quiz_name) :
         with get_db() as database:
