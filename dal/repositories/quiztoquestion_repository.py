@@ -1,6 +1,8 @@
 from typing import Optional
 
 from dal.database import get_db
+from dal.models.question_models import Question
+from dal.models.quiz_models import Quiz
 from dal.models.quiztoquestion_models import QuizToQuestion
 
 class QuizToQuestionRepository:
@@ -16,4 +18,36 @@ class QuizToQuestionRepository:
                     "quiztoquestion_questionId" : quizToQuestion.quiz_questionId ,
                 }
                 for quizToQuestion in quizToQuestions
+            ]
+
+    def get_byname_question(self, quiz_name, question_number) :
+        with get_db() as database:
+            questions_text = (
+                database.query(Question, Quiz)
+                .join(QuizToQuestion, QuizToQuestion.quiztoquestion_questionId == Question.question_id)
+                .join(Quiz, QuizToQuestion.quiztoquestion_quizId == Quiz.quiz_id)
+                .filter(Quiz.quiz_name == quiz_name)
+                .filter(Quiz.quiz_category == Question.question_category)
+                .all()
+            )
+            return [
+                question.question_questions
+                for question, quiz in questions_text
+                if quiz.quiz_type in (question.question_type or [])
+            ]
+
+    def get_byname_answers(self, quiz_name) :
+        with get_db() as database:
+            answers_text = (
+                database.query(Question, Quiz)
+                .join(QuizToQuestion, QuizToQuestion.quiztoquestion_questionId == Question.question_id)
+                .join(Quiz, QuizToQuestion.quiztoquestion_quizId == Quiz.quiz_id)
+                .filter(Quiz.quiz_name == quiz_name)
+                .filter(Quiz.quiz_category == Question.question_category)
+                .all()
+            )
+            return [
+                question.question_answers
+                for question, quiz in answers_text
+                if quiz.quiz_type in (question.question_type or [])
             ]

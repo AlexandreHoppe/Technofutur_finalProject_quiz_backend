@@ -12,4 +12,5 @@ class Quiz(Base) :
     quiz_difficulty=Column(Integer, default=0)
     quiz_category= Column(String(100), nullable=False)
     quiz_type=Column(String(100), nullable=False)
+
     
