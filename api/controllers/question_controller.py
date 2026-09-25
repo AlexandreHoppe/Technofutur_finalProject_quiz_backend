@@ -10,3 +10,12 @@ class QuestionController:
     #Test Get Everything
     def get_all_question(self):
         return self.repo.get_all()
+
+    def create_Quiz(self, data):
+        return self.repo.QuizToQuestionRepository(data)
+    
+    def get_byname_question(self, quiz_name):
+        return self.repo.get_byname_question(quiz_name)
+    
+    def get_byname_answers(self, quiz_name) :
+        return self.repo.get_byname_answers(quiz_name)

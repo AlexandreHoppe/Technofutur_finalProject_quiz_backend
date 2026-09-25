@@ -13,3 +13,6 @@ class QuizController:
 
     def create_Quiz(self, data):
         return self.repo.QuizRepository(data)
+    
+    def put_quiz_responded(self, quizName, newResponded) :
+        return self.repo.QuizRepository(quizName, newResponded)

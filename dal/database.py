@@ -54,31 +54,31 @@ def seed_data():
                     question_questions="What is yes ?",
                     question_answers="Yes",
                     question_category="Yes or No",
-                    question_type=["party"]
+                    question_type=["party", "Text-Mode"]
                 ),
                 Question(
                     question_questions="What is no ?",
                     question_answers="No",
                     question_category="Yes or No",
-                    question_type=["party", "Multiple-Choice"]
+                    question_type=["party", "Text-Mode"]
                 ),
                 Question(
                     question_questions="What is yes and no?",
                     question_answers="Yes and No",
                     question_category="Yes or No",
-                    question_type=["party", "Multiple-Choice"]
+                    question_type=["party", "Text-Mode"]
                 ),
                 Question(
                     question_questions="Is This as test ?",
                     question_answers="Maybe",
                     question_category="Test",
-                    question_type=["party"]
+                    question_type=["party", "Text-Mode"]
                 ),
                 Question(
                     question_questions="Is This as test too?",
                     question_answers="Two",
                     question_category="Test",
-                    question_type=["party", "Multiple-Choice"]
+                    question_type=["party", "Multiple-Choice", "Text-Mode"]
                 ),
             ]
             database.add_all(question)

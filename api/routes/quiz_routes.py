@@ -37,8 +37,8 @@ def create_quiz():
         if not isinstance(data["quiz_length"], int) or data["quiz_length"] <= 0:
             return jsonify({"error": "quiz_length must be a positive integer"}), 400
 
-        with get_db() as db:
-            questions = db.query(Question).filter_by(
+        with get_db() as database:
+            questions = database.query(Question).filter_by(
                 question_category=data["quiz_category"]
             ).limit(data["quiz_length"]).all()
             if not questions:
@@ -55,15 +55,15 @@ def create_quiz():
                 quiz_type=data["quiz_type"]
             )
 
-            db.add(quiz)
-            db.flush()
+            database.add(quiz)
+            database.flush()
 
             for question in questions:
-                db.add(QuizToQuestion(
+                database.add(QuizToQuestion(
                     quiztoquestion_quizId=quiz.quiz_id,
                     quiztoquestion_questionId=question.question_id
                 ))
-            db.flush()
+            database.flush()
 
             created = {
                 "quiz_id": quiz.quiz_id,
@@ -79,4 +79,35 @@ def create_quiz():
 
         return jsonify(created), 201
     except Exception as error :
+        return jsonify({"error": str(error)}), 500
+
+
+@quiz_blueprint.route("/<string:quiz_name>/responded", methods=["PUT"])
+def put_quiz_responded(quiz_name):
+    try:
+        data = request.get_json()
+        quiz_responded = data.get("quizResponded")
+        if not isinstance(quiz_responded, int) or quiz_responded < 0:
+            return jsonify({"error": "quizResponded must be a non-negative integer"}), 400
+
+        with get_db() as database:
+            quiz = (
+                database.query(Quiz).filter(Quiz.quiz_name == quiz_name).first()
+            )
+            if quiz is None:
+                return jsonify({"error": "Quiz not found"}), 404
+
+            quiz.quiz_responded = quiz_responded
+
+            if quiz.quiz_responded >= quiz.quiz_length:
+                quiz.quiz_done = True
+
+            response = {
+                "quiz_name": quiz.quiz_name,
+                "quiz_responded": quiz.quiz_responded,
+                "quiz_done": quiz.quiz_done
+            }
+
+        return jsonify(response), 200
+    except Exception as error:
         return jsonify({"error": str(error)}), 500
