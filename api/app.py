@@ -9,6 +9,7 @@ from api.routes.quiz_routes import quiz_blueprint
 from api.routes.question_routes import question_blueprint
 
 from dal.database import init_db, test_connection, seed_data
+from dal.repositories.question_repository import QuestionRepository
 
 load_dotenv()
 
@@ -18,8 +19,9 @@ CORS(app, origins=["http://localhost:4200"])
 
 def startup():
     if test_connection():
-        init_db(delete=False)
+        init_db(delete=True)
         seed_data()
+        QuestionRepository.feed_text_question()
         print("Database ready")
 
 startup()

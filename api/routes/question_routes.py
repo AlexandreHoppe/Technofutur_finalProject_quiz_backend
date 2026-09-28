@@ -23,16 +23,8 @@ def get_all_quizzes():
 
 @question_blueprint.route("/<string:quiz_name>/question", methods=["GET"])
 def get_byname_question(quiz_name):
-    questions = question_controller.get_byname_question(quiz_name)
-    if questions is None:
-        return jsonify({"error": "Quiz not found or no question remains"}), 404
-    return jsonify({
-        "question": questions
-    }), 200
+    return question_controller.get_byname_question(quiz_name)
 
 @question_blueprint.route("/<string:quiz_name>/answer", methods=["GET"])
 def get_byname_answers(quiz_name):
-    answers = question_controller.get_byname_answers(quiz_name)
-    return jsonify({
-        "answers": answers
-    })
+    return question_controller.get_byname_answers(quiz_name)

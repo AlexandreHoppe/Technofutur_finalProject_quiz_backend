@@ -1,5 +1,5 @@
 from typing import Optional
-
+import requests, json, html
 from dal.database import get_db
 from dal.models.question_models import Question
 from dal.models.quiz_models import Quiz
@@ -35,7 +35,6 @@ class QuestionRepository:
             if quiz is None:
                 return None
 
-            print(quiz)
 
             questions_text = (
                 database.query(Question, Quiz)
@@ -51,10 +50,6 @@ class QuestionRepository:
                 for question, quiz in questions_text
                 if quiz.quiz_type in (question.question_type or [])
             ]
-
-            print(quiz.quiz_responded)
-            print(quiz.quiz_type)
-            print(toBeSend)            
 
             if quiz.quiz_responded >= len(toBeSend):
                 return None
@@ -84,3 +79,26 @@ class QuestionRepository:
             ]
 
             return toBeSend[quiz.quiz_responded]
+
+    def feed_text_question():
+
+        url = "https://opentdb.com/api.php?amount=50&category=11&difficulty=easy"
+
+        response = requests.get(url).json()
+        datas = response.get("results", [])
+
+        datas = html.unescape(datas)
+        
+        with get_db() as database :
+            for data in datas:
+                print(data)
+                question = Question(
+                    question_questions=html.unescape(data.get("question")),
+                    question_answers=html.unescape(data.get("correct_answer")),
+                    question_category=html.unescape(data.get("category")),
+                    question_type=["Text-Mode", "Multiple-Choice"]
+                )
+
+                database.add(question)
+                database.flush()
+ 

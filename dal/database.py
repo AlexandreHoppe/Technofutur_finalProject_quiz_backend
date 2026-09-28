@@ -3,6 +3,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 
+
 from dal.models.base_models import Base
 from dal.models.user_models import User
 from dal.models.question_models import Question
@@ -80,6 +81,18 @@ def seed_data():
                     question_category="Test",
                     question_type=["party", "Multiple-Choice", "Text-Mode"]
                 ),
+                Question(
+                    question_questions="Is This as test too?",
+                    question_answers="Yes",
+                    question_category="Yes or No",
+                    question_type=["party", "Multiple-Choice", "Text-Mode"]
+                ),
+                Question(
+                    question_questions="Is This as test ?",
+                    question_answers="Yes",
+                    question_category="Yes or No",
+                    question_type=["party", "Multiple-Choice", "Text-Mode"]
+                )
             ]
             database.add_all(question)
             database.flush()
